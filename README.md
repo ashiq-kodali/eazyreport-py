@@ -1,17 +1,17 @@
 <div align="center">
 
-![eazyreport Banner](assets/eazyreport_banner.png)
+<img src="https://raw.githubusercontent.com/ashiq-kodali/eazyreport-py/main/assets/eazyreport_banner.png" alt="eazyreport Banner" width="100%" />
 
 # eazyreport (Python)
 
-**Ultra-fast, zero-JS report generation engine for Python.**  
-*Native HTML, vector SVG charts, barcodes/QR codes, and direct vector PDF export without any JavaScript runtime.*
+**Ultra-fast, high-precision report generation engine for Python.**  
+*Generate pixel-perfect printable HTML, vector SVG charts, barcodes/QR codes, and native vector PDF documents directly from `.rtpl` templates.*
 
 [![PyPI version](https://img.shields.io/pypi/v/eazyreport.svg)](https://pypi.org/project/eazyreport/)
 [![CI](https://github.com/ashiq-kodali/eazyreport-py/actions/workflows/ci.yml/badge.svg)](https://github.com/ashiq-kodali/eazyreport-py/actions)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Zero JS](https://img.shields.io/badge/JavaScript%20Engine-None%20(Pure%20Python)-brightgreen.svg)](#why-zero-js)
+[![Downloads](https://img.shields.io/pypi/dm/eazyreport.svg)](https://pypi.org/project/eazyreport/)
 
 </div>
 
@@ -19,31 +19,114 @@
 
 ## 🌟 Overview
 
-`eazyreport` is a enterprise-grade reporting engine written in 100% pure Python. It allows developers to design visual `.rtpl` reports (invoices, purchase orders, shipping labels, financial statements, analytics summaries) and render them into **pixel-perfect printable HTML** and **native vector PDF documents**.
-
-Unlike other report engines that require headless Chromium, Node.js, PyExecJS, or WebKit, `eazyreport` evaluates Handlebars-style templates and FastReport logic **entirely inside Python**.
+`eazyreport` is an enterprise-grade reporting engine designed for Python developers. It takes visual `.rtpl` report templates and dynamically binds them with runtime JSON data, dictionaries, or database records. With a multi-pass layout engine, `eazyreport` produces **print-ready HTML documents** and **direct vector PDF files** with sub-millisecond execution.
 
 ---
 
-## ⚡ Why Zero-JS?
+## 💼 Real-World Use Cases
 
-| Traditional Reporting (Puppeteer / Node / JS2Py) | **eazyreport (Pure Python)** |
-| :--- | :--- |
-| ❌ Heavy headless Chromium (~300MB RAM per process) | 🚀 **Under 15MB RAM footprint** |
-| ❌ Node.js / PyExecJS / V8 binary runtime dependencies | 🚀 **100% pure Python execution** |
-| ❌ Fragile cross-platform installs on Alpine / Lambda | 🚀 **Instantly runs on AWS Lambda, Cloud Run, Alpine Docker** |
-| ❌ High cold-start times (1-3 seconds) | 🚀 **Sub-millisecond pagination and rendering** |
+| Use Case | Description | Included Features |
+| :--- | :--- | :--- |
+| 🧾 **Commercial Invoices & Billing** | Multi-item commercial invoices, tax invoices, purchase orders, and sales receipts. | Multi-level footers, auto-calculated sums/averages, tax breakdowns, discount tables, and English cheque words (`numberToWords`). |
+| 📦 **Shipping Labels & Waybills** | Logistics waybills, dispatch notes, courier labels, and bills of lading. | Built-in high-precision vector barcodes (`Code 128`, `Code 39`, `EAN-13`) and 2D verification `QR Codes`. |
+| 📊 **Financial & Executive Reports** | Balance sheets, P&L statements, quarterly sales summaries, and executive decks. | Built-in vector SVG charts (`column`, `bar`, `line`, `area`, `pie`, `doughnut`) with legends and gridlines. |
+| 🏥 **Healthcare & Lab Reports** | Patient summaries, blood test panels, clinical diagnostics, and discharge forms. | Multi-column layouts, conditional highlight rules for critical ranges, and structured section headers. |
+| 🏷️ **Inventory & Asset Tags** | Warehouse stock audit sheets, shelf tags, product catalog pages, and asset tags. | Repeated multi-column grid printing, barcode integration, and auto-growing item descriptions. |
+| 🎓 **Certificates & Statement of Accounts** | Course completion certificates, diplomas, accreditation passes, and monthly bank statements. | Full-bleed watermark overlays (`DRAFT`, `CONFIDENTIAL`), custom margins, and exact page budget management. |
 
 ---
 
-## 🚀 Key Features
+## ⚙️ How It Works
 
-- **Handlebars Expression Engine**: 35+ built-in helpers (`formatCurrency`, `formatDate`, `formatNumber`, `formatPercent`, `sum`, `avg`, `count`, `math`, `numberToWords`, `iif`, string transforms). Supports recursive subexpression parentheses `(gt item.qty 10)`.
-- **FastReport Conditional Logic**: Automatic rule evaluation (`empty`, `equals`, `gt`, `lt`, `contains`, `starts_with`) driving dynamic actions (`hide`, `skip`, `background`, `text_color`, `font_weight`).
-- **Two-Pass Pagination**: Multi-pass pagination resolving total page counts (`[TotalPages]` & `[Page]`), page headers/footers, group bands with aggregate calculations, and child bands (`fillUnusedSpace` & `keepWithParent`).
-- **Pure SVG Vector Charts**: Built-in SVG chart generator producing column, horizontal bar, line, area, pie, and doughnut charts without external charting libraries.
-- **Barcodes & QR Codes**: Native vector generation for Code 128, Code 39, EAN-13, and 2D QR codes.
-- **Dual Export**: Generates standalone, responsive HTML ready for browser viewing/printing, as well as direct vector PDF byte streams via ReportLab.
+`eazyreport` follows a clear, predictable 4-step pipeline:
+
+```
+┌─────────────────────┐      ┌─────────────────────┐
+│  .rtpl Template     │  +   │  JSON / Dict Data   │
+│  (Visual Layout)    │      │  (Runtime Payload)  │
+└──────────┬──────────┘      └──────────┬──────────┘
+           │                            │
+           └──────────────┬─────────────┘
+                          │
+                          ▼
+        ┌───────────────────────────────────┐
+        │  Multi-Pass Layout Engine         │
+        │  - Two-pass pagination            │
+        │  - Resolves [TotalPages] & [Page] │
+        │  - Evaluates expressions & logic  │
+        │  - Draws vector charts & barcodes │
+        │  - Child bands & fillUnusedSpace  │
+        └─────────────────┬─────────────────┘
+                          │
+            ┌─────────────┴─────────────┐
+            ▼                           ▼
+┌───────────────────────┐   ┌───────────────────────┐
+│ Standalone HTML Page  │   │ Direct Vector PDF     │
+│ (Printable & Preview) │   │ (Binary Byte Stream)  │
+└───────────────────────┘   └───────────────────────┘
+```
+
+1. **Template Definition**: Load an `.rtpl` file containing document layout, page dimensions, bands, elements, and styles.
+2. **Data Binding**: Inject your application's data (lists of records, master-detail hierarchies, and runtime parameters).
+3. **Multi-Pass Layout & Pagination**:
+   - **Pass 1**: Calculates content height, line wrapping, band growth, group boundaries, and total page count.
+   - **Pass 2**: Resolves `[TotalPages]` and page numbers (`Page 1 of 5`), evaluates conditional styles (`rules`), and calculates aggregates (`sum`, `avg`, `min`, `max`, `count`).
+4. **Dual Export**: Emits standalone, responsive HTML ready for browser viewing/printing, or direct vector PDF bytes via ReportLab.
+
+---
+
+## 🎨 How `.rtpl` Templates Are Generated
+
+An **`.rtpl`** (Report Template) file is a clean, structured JSON document that defines the entire visual architecture of a report.
+
+### 1. Visual Drag-and-Drop Designer
+Most users generate `.rtpl` files using the visual report designer interface:
+- **Visual Band Hierarchy**: Add and arrange bands (`ReportTitle`, `PageHeader`, `Data`, `GroupHeader`, `GroupFooter`, `Child`, `PageFooter`, `ReportSummary`).
+- **Interactive Component Palette**: Place text blocks, fields, vector charts, barcodes, lines, and shapes with drag-and-drop coordinates.
+- **Visual Styling Inspector**: Configure typography, borders, backgrounds, paddings, and alignment visually.
+- **Export**: Save the report as an `.rtpl` file to version control alongside your application code.
+
+### 2. Programmatic Creation in Python
+You can also generate or customize `.rtpl` templates dynamically in Python using `eazyreport`'s type-safe data models:
+
+```python
+from eazyreport import LayoutDocument, LayoutPage, Band, DataBand, LayoutElement, TextStyle
+
+doc = LayoutDocument(
+    title="Invoice Template",
+    pages=[
+        LayoutPage(
+            size="A4",
+            orientation="portrait",
+            reportTitle=Band(
+                height=25.0,
+                elements=[
+                    LayoutElement(
+                        id="title_text",
+                        type="text",
+                        content="Tax Invoice",
+                        style=TextStyle(fontSize=18.0, bold=True),
+                        w=100.0,
+                        h=12.0,
+                    )
+                ],
+            ),
+            data=[
+                DataBand(
+                    id="items_band",
+                    dataPath="items",
+                    height=8.0,
+                    elements=[
+                        LayoutElement(id="item_desc", type="field", field_name="item.description", w=80.0, h=8.0),
+                        LayoutElement(id="item_qty", type="field", field_name="item.qty", x=85.0, w=20.0, h=8.0),
+                        LayoutElement(id="item_price", type="field", field_name="item.unitPrice", x=110.0, w=30.0, h=8.0),
+                    ],
+                )
+            ],
+        )
+    ],
+)
+```
 
 ---
 
@@ -53,48 +136,53 @@ Unlike other report engines that require headless Chromium, Node.js, PyExecJS, o
 pip install eazyreport
 ```
 
-Or install directly from GitHub:
-
+Or install with `uv` / `poetry`:
 ```bash
-pip install git+https://github.com/ashiq-kodali/eazyreport-py.git
+uv add eazyreport
+# or
+poetry add eazyreport
 ```
 
 ---
 
-## 🛠️ Quickstart
+## 🚀 Quickstart
 
-### 1. Fluent Builder API
+### 1. Generate Printable HTML and Vector PDF
 
 ```python
 from eazyreport import ReportBuilder
 
-# Load template from file, dict, or JSON string
+# Initialize builder with template file and data payload
 builder = (
-    ReportBuilder("invoice.rtpl")
+    ReportBuilder("test_invoice.rtpl")
     .data({
-        "invoiceNumber": "INV-2026-001",
+        "invoiceNumber": "INV-2026-9901",
         "issueDate": "2026-10-02",
-        "customer": {"name": "Acme Global Logistics"},
+        "customer": {
+            "name": "Acme Global Logistics",
+            "email": "ap@acme.com",
+            "address": {"city": "Zurich", "zip": "8001"},
+        },
         "items": [
-            {"sku": "SRV-01", "description": "Cloud Consultation", "qty": 10, "unitPrice": 150.00, "total": 1500.00},
-            {"sku": "LIC-02", "description": "Enterprise License", "qty": 1, "unitPrice": 2400.00, "total": 2400.00},
+            {"sku": "SRV-01", "description": "Cloud Infrastructure", "qty": 10, "unitPrice": 150.00, "total": 1500.00},
+            {"sku": "LIC-02", "description": "Enterprise License", "qty": 2, "unitPrice": 2400.00, "total": 4800.00},
         ],
-        "grandTotal": 3900.00,
+        "grandTotal": 6300.00,
     })
-    .params({"Company": "EazyCorp Inc."})
+    .params({"Company": "EazyCorp International"})
 )
 
-# 1. Render Standalone Printable HTML
-html_output = builder.to_html()
+# 1. Export Standalone HTML (for in-browser preview or web printing)
+html_str = builder.to_html()
 with open("invoice.html", "w", encoding="utf-8") as f:
-    f.write(html_output)
+    f.write(html_str)
 
-# 2. Render Native Vector PDF
+# 2. Export Direct Vector PDF (binary bytes)
 pdf_bytes = builder.to_pdf()
 with open("invoice.pdf", "wb") as f:
     f.write(pdf_bytes)
 
-# 3. Inspect Page Count
+# 3. Inspect Pagination
 print(f"Total Pages Generated: {builder.page_count()}")
 ```
 
@@ -103,13 +191,13 @@ print(f"Total Pages Generated: {builder.page_count()}")
 ```python
 from eazyreport import get_report_html, get_report_pdf, count_report_pages
 
-# Get HTML string directly
+# One-liner HTML generation
 html_doc = get_report_html("template.rtpl", data=data, params=params)
 
-# Get PDF bytes directly
+# One-liner PDF generation
 pdf_data = get_report_pdf("template.rtpl", data=data, params=params)
 
-# Count total pages
+# Calculate total page count
 pages = count_report_pages("template.rtpl", data=data)
 ```
 
@@ -117,26 +205,24 @@ pages = count_report_pages("template.rtpl", data=data)
 
 ## 🧩 Built-in Expression Helpers
 
-| Helper | Syntax Example | Description |
+| Helper | Example Syntax | Purpose |
 | :--- | :--- | :--- |
-| **`formatCurrency`** | `{{formatCurrency item.total "USD" 2}}` | Formats number as currency with symbol |
-| **`formatNumber`** | `{{formatNumber item.qty 0 true}}` | Formats number with decimals & thousands commas |
-| **`formatDate`** | `{{formatDate issueDate "dd/MM/yyyy"}}` | Formats datetime with custom pattern tokens |
-| **`formatPercent`** | `{{formatPercent discount 1}}` | Formats ratio to percentage string (`85.4%`) |
-| **`numberToWords`** | `{{numberToWords grandTotal}}` | Cheque amount in English words (`One Hundred Twenty-Five and 50/100`) |
-| **`sum`** | `{{sum items "total"}}` | Calculates sum of fields across list |
+| **`formatCurrency`** | `{{formatCurrency item.total "USD" 2}}` | Formats numeric value as currency ($1,234.50) |
+| **`formatNumber`** | `{{formatNumber item.qty 0 true}}` | Formats numbers with thousands separators |
+| **`formatDate`** | `{{formatDate issueDate "dd/MM/yyyy"}}` | Custom date formatting tokens |
+| **`formatPercent`** | `{{formatPercent discount 1}}` | Converts decimal ratios to percentages (`85.4%`) |
+| **`numberToWords`** | `{{numberToWords grandTotal}}` | English words for bank cheques (`One Hundred Twenty-Five and 50/100`) |
+| **`sum`** | `{{sum items "total"}}` | Calculates total sum across list |
 | **`avg`** | `{{avg items "unitPrice"}}` | Calculates arithmetic mean of field |
-| **`count`** | `{{count items}}` | Counts number of items in list |
-| **`iif`** | `{{iif (gt qty 10) "Bulk" "Single"}}` | Inline ternary condition |
-| **`gt` / `lt` / `eq`** | `(gt item.qty 10)` | Comparison operators for subexpressions |
-| **`add` / `sub` / `mul`** | `{{mul item.qty item.unitPrice}}` | Arithmetic operators |
-| **`titlecase`** | `{{titlecase customer.name}}` | Converts string to Title Case |
+| **`count`** | `{{count items}}` | Total count of records |
+| **`iif`** | `{{iif (gt qty 10) "Bulk Order" "Standard"}}` | Inline ternary condition |
+| **`titlecase`** | `{{titlecase customer.name}}` | Converts text to Title Case |
 
 ---
 
-## 🧪 Running Tests
+## 🧪 Testing
 
-The test suite covers expressions, pagination, two-pass `[TotalPages]` calculation, SVG vector charts, barcodes, and real commercial invoice templates:
+Run the test suite covering expressions, multi-pass pagination, SVG charts, barcodes, and real commercial invoice templates:
 
 ```bash
 pytest -v tests
@@ -144,8 +230,13 @@ pytest -v tests
 
 ---
 
+## 👥 Contributors
+
+- **Ashiq Kodali** ([@ashiq-kodali](https://github.com/ashiq-kodali)) — *Lead Developer & Maintainer*
+- **Thamneem** ([@thamneem](https://github.com/thamneem)) — *Contributor*
+
+---
+
 ## 📄 License
 
 Distributed under the **MIT License**. See [LICENSE](LICENSE) for details.
-
-Developed with ❤️ by **[Ashiq Kodali](https://github.com/ashiq-kodali)** (`itzmeask@gmail.com`).

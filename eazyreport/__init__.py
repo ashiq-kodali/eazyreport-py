@@ -1,6 +1,6 @@
-"""eazyreport-py: Ultra-fast, zero-JS report generation engine for Python.
+"""eazyreport-py: Ultra-fast report generation engine for Python.
 
-Pure Python implementation of .rtpl templates, Handlebars expressions, FastReport
+High-performance implementation of .rtpl templates, Handlebars expressions, FastReport
 conditional formatting, SVG charts, barcodes/QR codes, HTML printing, and native vector PDF.
 """
 
@@ -59,8 +59,8 @@ from .model.types import (
 )
 from .renderers.pdf_renderer import render_pdf_bytes
 
-__version__ = '1.0.0'
-__author__ = 'Ashiq Kodali'
+__version__ = '1.0.1'
+__author__ = 'Ashiq Kodali, Thamneem'
 
 __all__ = [
     # API
