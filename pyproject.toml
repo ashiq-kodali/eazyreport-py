@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "eazyreport"
-version = "1.0.1"
+version = "1.0.2"
 description = "Ultra-fast report generation engine for Python with native HTML, vector SVG charts, barcodes, and vector PDF export."
 readme = "README.md"
 requires-python = ">=3.9"
