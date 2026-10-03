@@ -7,6 +7,7 @@
 **Ultra-fast, zero-JS report generation engine for Python.**  
 *Native HTML, vector SVG charts, barcodes/QR codes, and direct vector PDF export without any JavaScript runtime.*
 
+[![PyPI version](https://img.shields.io/pypi/v/eazyreport.svg)](https://pypi.org/project/eazyreport/)
 [![CI](https://github.com/ashiq-kodali/eazyreport-py/actions/workflows/ci.yml/badge.svg)](https://github.com/ashiq-kodali/eazyreport-py/actions)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
