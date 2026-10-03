@@ -1,0 +1,68 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "eazyreport"
+version = "1.0.0"
+description = "Ultra-fast, zero-JS report generation engine for Python with native HTML, vector SVG charts, barcodes, and PDF export."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [
+    { name = "Ashiq Kodali", email = "itzmeask@gmail.com" }
+]
+maintainers = [
+    { name = "Ashiq Kodali", email = "itzmeask@gmail.com" }
+]
+keywords = [
+    "reporting",
+    "report",
+    "invoice",
+    "pdf",
+    "html",
+    "handlebars",
+    "fastreport",
+    "chart",
+    "barcode",
+    "qr-code",
+    "rtpl"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Office/Business :: Financial :: Accounting",
+    "Topic :: Printing",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+dependencies = [
+    "reportlab>=4.0.0",
+    "qrcode>=7.0.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "build>=1.0.0",
+    "twine>=5.0.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/ashiq-kodali/eazyreport-py"
+Documentation = "https://github.com/ashiq-kodali/eazyreport-py#readme"
+Repository = "https://github.com/ashiq-kodali/eazyreport-py.git"
+Issues = "https://github.com/ashiq-kodali/eazyreport-py/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["eazyreport*"]
+exclude = ["tests*", "examples*"]
