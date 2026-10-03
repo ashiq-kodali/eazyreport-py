@@ -60,7 +60,7 @@ from .model.types import (
 from .renderers.pdf_renderer import render_pdf_bytes
 
 __version__ = '1.0.1'
-__author__ = 'Ashiq Kodali, Thamneem'
+__author__ = 'Ashiq Kodali, Thameem PK'
 
 __all__ = [
     # API

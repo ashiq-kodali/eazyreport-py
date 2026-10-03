@@ -237,8 +237,8 @@ pytest -v tests
 
 ## 👥 Contributors
 
-- **Ashiq Kodali** ([@ashiq-kodali](https://github.com/ashiq-kodali)) — *Author & Lead Developer*
-- **Thamneem** ([@thamneem](https://github.com/thamneem)) — *Contributor*
+- **Ashiq Kodali** ([@ashiq-kodali](https://github.com/ashiq-kodali))
+- **Thameem PK**
 
 ---
 
